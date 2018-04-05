@@ -66,21 +66,4 @@ abstract public class PackageThread {
     }
 
     public abstract void handleConnection() throws Exception;
-//    {
-//        String msg = new String(receivedBuffer);
-//        if(msg.contains("I want to play")){
-//
-//            Game.OPPONENT = msg.substring(msg.indexOf('-') + 1).trim();
-//            sendBuffer = Game.ME.getBytes();
-//            BattleGround bg = new BattleGround(packet.getAddress(), packet.getPort(), socket);
-//
-//            packet = new DatagramPacket(sendBuffer, Game.ME.length(), packet.getAddress(), packet.getPort());
-//            socket.send(packet);
-//            // TODO: 04/04/2018
-//            colors.interrupt();
-//            dispose();
-//            bg.setVisible(true);
-//        }
-//    }
-
 }

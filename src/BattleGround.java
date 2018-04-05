@@ -1,10 +1,7 @@
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
@@ -18,8 +15,6 @@ public class BattleGround extends JFrame implements ActionListener{
     private JLabel counterLabel;
     private JButton fields[];
     private JButton readyButton;
-
-    private Thread listenJoin;
 
 
     public BattleGround(InetAddress ip, int port, DatagramSocket socket) throws HeadlessException {
@@ -71,6 +66,16 @@ public class BattleGround extends JFrame implements ActionListener{
             }
         }
         add(panel, BorderLayout.CENTER);
+
+        PackageThread pThread = new PackageThread(this, socket) {
+            @Override
+            public void handleConnection() throws Exception {
+
+            }
+        };
+
+        pThread.createAndStartListenThread();
+        pThread.createAndStartIsAliveThread();
     }
 
     @Override
@@ -112,51 +117,5 @@ public class BattleGround extends JFrame implements ActionListener{
 
     private void sendPacket(){
 
-    }
-
-    private void createAndStartListenThread(){
-
-        byte[] receivedBuffer = new byte[1024];
-        DatagramPacket packet = new DatagramPacket(receivedBuffer, receivedBuffer.length);
-
-        listenJoin = new Thread( () -> {
-            try {
-                socket.receive(packet);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        listenJoin.start();
-    }
-
-    private void createAndStartIsAliveThread(){
-        Thread isAliveJoin = new Thread( () -> {
-            try{
-                while(true) {
-                    if(!listenJoin.isAlive()) break;
-                }
-                handleConnection();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-        isAliveJoin.start();
-    }
-
-    private void handleConnection() throws Exception    {
-//        String msg = new String(receivedBuffer);
-//        if(msg.contains("I want to play")){
-//
-//            Game.OPPONENT = msg.substring(msg.indexOf('-') + 1).trim();
-//            sendBuffer = Game.ME.getBytes();
-//            BattleGround bg = new BattleGround(packet.getAddress(), packet.getPort(), socket);
-//
-//            packet = new DatagramPacket(sendBuffer, Game.ME.length(), packet.getAddress(), packet.getPort());
-//            socket.send(packet);
-//            // TODO: 04/04/2018
-//            colors.interrupt();
-//            dispose();
-//            bg.setVisible(true);
-//        }
     }
 }

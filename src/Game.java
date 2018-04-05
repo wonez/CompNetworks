@@ -1,5 +1,3 @@
-import java.net.DatagramSocket;
-
 public class Game {
 
     public static String ME = "";
@@ -11,6 +9,5 @@ public class Game {
         Screen sc = new Screen();
         sc.setVisible(true);
     }
-
 
 }

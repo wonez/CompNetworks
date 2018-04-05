@@ -19,7 +19,7 @@ public class Screen extends JFrame implements ActionListener {
 
         host = new JButton("Host");
         join = new JButton("Join");
-        nickname = new JTextField("kurac", 25);
+        nickname = new JTextField("Sakib", 25);
 
         host.addActionListener(this);
         join.addActionListener(this);

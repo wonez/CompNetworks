@@ -1,21 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class Host extends JFrame{
 
-    private Thread colors;
-    private Thread listenHost;
-    private Thread isAliveHost;
-
     private DatagramSocket socket;
-    private DatagramPacket packet;
-
-    private byte sendBuffer[];
-    private byte receivedBuffer[];
 
     public Host() {
 
@@ -58,64 +49,6 @@ public class Host extends JFrame{
         pThread.createAndStartIsAliveThread();
 
     }
-//        private void createAndStartColorThread(){
-//            colors = new Thread( () -> {
-//                try{
-//                    while(true) {
-//                        Waiting.colorCount++;
-//                        repaint();
-//                        Thread.sleep(500);
-//                    }
-//                } catch (InterruptedException e){}
-//            });
-//            colors.start();
-//        }
-//        private void createAndStartListenThread(){
-//            receivedBuffer = new byte[1024];
-//            packet = new DatagramPacket(receivedBuffer, receivedBuffer.length);
-//            listenHost = new Thread( () -> {
-//                try {
-//                    socket.receive(packet);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//            listenHost.start();
-//        }
-
-//        private void createAndStartIsAliveThread(){
-//            isAliveHost = new Thread( () -> {
-//                try{
-//                    while(true) {
-//                        if(!listenHost.isAlive()) {
-//                            break;
-//                        }
-//                    }
-//                    handleConnection();
-//
-//                } catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            });
-//            isAliveHost.start();
-//        }
-
-//        private void handleConnection() throws Exception    {
-//            String msg = new String(receivedBuffer);
-//            if(msg.contains("I want to play")){
-//
-//                Game.OPPONENT = msg.substring(msg.indexOf('-') + 1).trim();
-//                sendBuffer = Game.ME.getBytes();
-//                BattleGround bg = new BattleGround(packet.getAddress(), packet.getPort(), socket);
-//
-//                packet = new DatagramPacket(sendBuffer, Game.ME.length(), packet.getAddress(), packet.getPort());
-//                socket.send(packet);
-//                // TODO: 04/04/2018
-//                colors.interrupt();
-//                dispose();
-//                bg.setVisible(true);
-//            }
-//        }
 }
 
 class Waiting extends JPanel{
