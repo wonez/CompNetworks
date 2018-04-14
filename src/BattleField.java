@@ -174,8 +174,8 @@ public class BattleField extends JFrame implements ActionListener{
     }
 
     private boolean handleWin(JFrame parent){
-        if(Game.HITS == 2){
 
+        if(Game.HITS == 10){
             parent.dispose();
 
             End end = new End("Won");
