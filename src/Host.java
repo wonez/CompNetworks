@@ -17,7 +17,7 @@ public class Host extends JFrame{
         try {
             socket = new DatagramSocket(8080);
         } catch (SocketException e) {
-            e.printStackTrace();
+            System.out.println("Socket already created");
         }
 
 
@@ -36,9 +36,10 @@ public class Host extends JFrame{
 
                         packet = new DatagramPacket(sendBuffer, Game.ME.length(), packet.getAddress(), packet.getPort());
                         socket.send(packet);
-                        // TODO: 04/04/2018
+
                         colors.interrupt();
                         dispose();
+                        bg.setLocationRelativeTo(null);
                         bg.setVisible(true);
                     }
             }

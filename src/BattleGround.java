@@ -11,15 +11,18 @@ public class BattleGround extends JFrame implements ActionListener {
 
     private InetAddress ip;
     private int port;
+
     private JButton[] fields;
     private  static int counter = 5;
     private JLabel counterLabel;
     private JLabel textLabel;
     private JButton readyButton;
     private byte[] sendBuffer;
+
     private DatagramPacket packet;
     private DatagramSocket socket;
-    private boolean opponentReady =false;
+
+    private boolean opponentReady = false;
 
     public BattleGround(InetAddress ip, int port ,DatagramSocket socket) throws HeadlessException {
 
@@ -29,7 +32,7 @@ public class BattleGround extends JFrame implements ActionListener {
 
         this.ip = ip;
         this.port = port;
-        this.socket=socket;
+        this.socket = socket;
 
         fields = new JButton[20];
 
@@ -37,7 +40,7 @@ public class BattleGround extends JFrame implements ActionListener {
         for(int i = 0 ;i < 20 ; i++){
             JButton btn = new JButton(i+"");
             btn.setFont(new Font("Arial",Font.PLAIN,-1));
-            btn.setBackground(Color.BLUE);
+            btn.setBackground(Color.CYAN);
             btn.addActionListener(this);
             btn.setOpaque(true);
             btn.setBorderPainted(false);
@@ -71,7 +74,6 @@ public class BattleGround extends JFrame implements ActionListener {
             }
             else{
                 panel.add(new JPanel());
-
             }
         }
         this.add(panel,BorderLayout.CENTER);
@@ -80,23 +82,23 @@ public class BattleGround extends JFrame implements ActionListener {
             @Override
             public void handleConnection() throws Exception {
 
-
-                System.out.println("Primoo");
                 String msg = new String(receivedBuffer);
                 if(msg.contains("I am Ready")){
                     textLabel.setText(Game.OPPONENT + " is ready");
                     opponentReady = true;
                 }
                 if(msg.contains("I am also Ready")){
-                    System.out.println("otvaram novi game");
+                    dispose();
+                    BattleField bf = new BattleField(ip, port, fields, socket);
+                    bf.setLocationRelativeTo(null);
+                    bf.setVisible(true);
                 }
             }
         };
 
-
         pthread.createAndStartListenThread();
         pthread.createAndStartIsAliveThread();
-        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -153,6 +155,10 @@ public class BattleGround extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        if(opponentReady) System.out.println("Otvara mudo");
+        if(opponentReady) {
+            dispose();
+            BattleField bf = new BattleField(ip, port, fields, socket);
+            bf.setVisible(true);
+        }
     }
 }

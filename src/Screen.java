@@ -19,7 +19,7 @@ public class Screen extends JFrame implements ActionListener {
 
         host = new JButton("Host");
         join = new JButton("Join");
-        nickname = new JTextField("Sakib", 25);
+        nickname = new JTextField("Naser Oric", 25);
 
         host.addActionListener(this);
         join.addActionListener(this);
@@ -59,16 +59,18 @@ public class Screen extends JFrame implements ActionListener {
 
         if(e.getActionCommand().equals("Host")){
 
-            Game.TYPE = "Host";
+            Game.TYPE = 0;
             this.dispose();
             Host host = new Host();
+            host.setLocationRelativeTo(null);
             host.setVisible(true);
 
         }else if(e.getActionCommand().equals("Join")){
 
-            Game.TYPE = "Join";
+            Game.TYPE = 1;
             this.dispose();
             Join join = new Join();
+            join.setLocationRelativeTo(null);
             join.setVisible(true);
         }
     }

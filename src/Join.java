@@ -27,8 +27,9 @@ public class Join extends JFrame{
             public void handleConnection() throws Exception {
                 colors.interrupt();
                 Game.OPPONENT = new String(receivedBuffer).trim();
-                BattleGround bg = new BattleGround(packet.getAddress(), packet.getPort(), socket);
                 dispose();
+                BattleGround bg = new BattleGround(packet.getAddress(), packet.getPort(), socket);
+                bg.setLocationRelativeTo(null);
                 bg.setVisible(true);
             }
         };

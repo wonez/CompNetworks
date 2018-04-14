@@ -28,8 +28,8 @@ abstract public class PackageThread {
         listenHost = new Thread( () -> {
             try {
                 socket.receive(packet);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Already listening on this socket, this happens if game is run on the same pc");
             }
         });
         listenHost.start();
